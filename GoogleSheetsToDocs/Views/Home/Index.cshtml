@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Convert a sheet";
+}
+@model SheetVM
+<div>
+    <div class="text-center">
+        <h2 class="display-4">Google sheet to doc converter</h2>
+        <div class="form-inline w-100">
+            <form class="w-100" asp-action="Convert">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 mt-2">
+                        <label class="d-inline-block w-25">Paste Google Sheets link</label><input asp-for="SheetId" class="form-control w-75 " />
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 mt-2">
+                        <label class="d-inline-block w-25">Paste Google Docs link</label><input asp-for="DocId" class="form-control w-75 " />
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4 mt-2 pl-4">
+                        <button class="btn btn-primary w-100" type="submit">Convert</button>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        @if (Model.CoverPage != null)
+        {
+            <div class="col-md-12"><h4>Cover Page</h4></div>
+            <div class="col-md-12"><span>@Model.CoverPage.Title</span></div>
+            <div class="col-md-12"><span>@Model.CoverPage.PatentNo</span></div>
+            <div class="col-md-12"><span>@Model.CoverPage.Inventor</span></div>
+            <div class="col-md-12"><span>@Model.CoverPage.PreparedBy</span></div>
+        }
+        @if (Model.Abstract != null)
+        {
+            <div class="col-md-12"><h4>Abstract</h4></div>
+            <div class="col-md-12"><span>@Model.Abstract</span></div>
+        }
+        @if (Model.ClassificationCodes != null)
+        {
+            <div class="col-md-12"><h4>Classification Codes</h4></div>
+            @foreach (ClassificationCode code in Model.ClassificationCodes)
+            {
+                <div class="col-md-12"><span><b>USC_Code:</b> @code.USC_Code </span></div>
+                <div class="col-md-12"><span><b>Definition:</b> @code.Definition </span></div>
+            }
+        }
+        @if (Model.Claims != null)
+        {
+            <div class="col-md-12"><h4>Claims</h4></div>
+            @foreach (Claim claim in Model.Claims)
+            {
+                <div class="col-md-12"><span> @claim.Content </span></div>
+                @foreach (Claim child in claim.Children)
+                {
+                    <div class="col-md-12"><span>----- @child.Content </span></div>
+                    @foreach (Claim grandchild in child.Children)
+                    {
+                        <div class="col-md-12"><span>---------- @grandchild.Content </span></div>
+                    }
+                }
+            }
+        }
+        @if (Model.ApplicationEvents != null)
+        {
+            <div class="col-md-12"><h4>Application events</h4></div>
+            @foreach (ApplicationEvent appEvent in Model.ApplicationEvents)
+            {
+                <div class="col-md-12"><span><b>Date:</b> @appEvent.Date </span></div>
+                <div class="col-md-12"><span><b>Status:</b> @appEvent.Status </span></div>
+                <div class="col-md-12"><span><b>Link:</b> @appEvent.Hyperlink </span></div>
+            }
+        }
+        @if (Model.Error != null)
+        {
+            <div class="alert-danger">@Model.Error</div>
+        }
+    </div>
+</div>
