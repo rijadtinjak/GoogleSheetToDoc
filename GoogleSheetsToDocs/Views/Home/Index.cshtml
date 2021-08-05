@@ -32,31 +32,31 @@
         </div>
     </div>
     <div>
+        <div class="col-md-12"><h4>Cover Page</h4></div>
         @if (Model.CoverPage != null)
         {
-            <div class="col-md-12"><h4>Cover Page</h4></div>
             <div class="col-md-12"><span>@Model.CoverPage.Title</span></div>
             <div class="col-md-12"><span>@Model.CoverPage.PatentNo</span></div>
             <div class="col-md-12"><span>@Model.CoverPage.Inventor</span></div>
             <div class="col-md-12"><span>@Model.CoverPage.PreparedBy</span></div>
         }
+        <div class="col-md-12"><h4>Abstract</h4></div>
         @if (Model.Abstract != null)
         {
-            <div class="col-md-12"><h4>Abstract</h4></div>
             <div class="col-md-12"><span>@Model.Abstract</span></div>
         }
+        <div class="col-md-12"><h4>Classification Codes</h4></div>
         @if (Model.ClassificationCodes != null)
         {
-            <div class="col-md-12"><h4>Classification Codes</h4></div>
             @foreach (ClassificationCode code in Model.ClassificationCodes)
             {
                 <div class="col-md-12"><span><b>USC_Code:</b> @code.USC_Code </span></div>
                 <div class="col-md-12"><span><b>Definition:</b> @code.Definition </span></div>
             }
         }
+        <div class="col-md-12"><h4>Claims</h4></div>
         @if (Model.Claims != null)
         {
-            <div class="col-md-12"><h4>Claims</h4></div>
             @foreach (Claim claim in Model.Claims)
             {
                 <div class="col-md-12"><span> @claim.Content </span></div>
@@ -70,9 +70,9 @@
                 }
             }
         }
+        <div class="col-md-12"><h4>Application events</h4></div>
         @if (Model.ApplicationEvents != null)
         {
-            <div class="col-md-12"><h4>Application events</h4></div>
             @foreach (ApplicationEvent appEvent in Model.ApplicationEvents)
             {
                 <div class="col-md-12"><span><b>Date:</b> @appEvent.Date </span></div>

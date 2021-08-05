@@ -36,7 +36,7 @@ namespace GoogleSheetsToDocs.Controllers
                 SheetId =sheetId,
                 DocId=docId
             };
-             //DocUrl.Regex.match(/[-\w]{ 25,}/); }
+
             try
             {
                 await convertService.ExtractDataFromSheet(VM);
